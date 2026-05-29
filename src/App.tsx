@@ -3,6 +3,7 @@ import Hero           from './components/Hero'
 import IntroStrip     from './components/IntroStrip'
 import About          from './components/About'
 import Services       from './components/Services'
+import Gallery        from './components/Gallery'
 import ProjectBanner  from './components/ProjectBanner'
 import Guarantees     from './components/Guarantees'
 import Presence       from './components/Presence'
@@ -19,6 +20,7 @@ export default function App() {
         <IntroStrip />
         <About />
         <Services />
+        <Gallery />
         <ProjectBanner />
         <Guarantees />
         <Presence />
