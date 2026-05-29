@@ -57,13 +57,13 @@ export default function Hero() {
         <div className="flex gap-4 flex-wrap">
           <button
             onClick={() => scrollTo('#servicios')}
-            className="bg-amber hover:bg-amber-dark text-white px-9 py-3.5 rounded-sm text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200"
+            className="bg-amber hover:bg-amber-dark text-white px-9 py-3.5 rounded-[6px] text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200"
           >
             Nuestros servicios
           </button>
           <button
             onClick={() => scrollTo('#nosotros')}
-            className="border border-white/50 hover:border-white hover:bg-white/10 text-white px-9 py-3.5 rounded-sm text-[13px] font-medium uppercase tracking-wide transition-all duration-200"
+            className="border border-white/50 hover:border-white hover:bg-white/10 text-white px-9 py-3.5 rounded-[6px] text-[13px] font-medium uppercase tracking-wide transition-all duration-200"
           >
             Quiénes somos
           </button>

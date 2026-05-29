@@ -35,7 +35,7 @@ export default function Services() {
           {services.map((s, i) => (
             <div
               key={s.num}
-              className={`group bg-white border border-stone-200 rounded-sm p-9 relative overflow-hidden hover:shadow-xl hover:border-amber hover:-translate-y-1 transition-all duration-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`group bg-white border border-stone-200 rounded-[4px] p-9 relative overflow-hidden hover:shadow-xl hover:border-amber hover:-translate-y-1 transition-all duration-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: `${i * 60}ms` }}
             >
               {/* Top accent line */}

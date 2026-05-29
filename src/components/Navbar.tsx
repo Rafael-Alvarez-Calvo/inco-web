@@ -21,14 +21,17 @@ export default function Navbar() {
 
   const handleNav = (href: string) => {
     setOpen(false)
-    const el = document.querySelector(href)
-    el?.scrollIntoView({ behavior: 'smooth' })
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-16 h-[70px] bg-white/97 border-b border-stone-200 transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-16 h-[70px] transition-all duration-300 ${
+          scrolled
+            ? 'bg-white border-b border-stone-200 shadow-md'
+            : 'bg-white border-b border-stone-200'
+        }`}
       >
         <a
           href="#"
@@ -44,7 +47,7 @@ export default function Navbar() {
             <li key={l.href}>
               <button
                 onClick={() => handleNav(l.href)}
-                className="text-[12.5px] tracking-wide uppercase text-stone-500 font-medium hover:text-blue transition-colors duration-200"
+                className="text-[12.5px] tracking-wide uppercase text-stone-600 font-medium hover:text-blue transition-colors duration-200"
               >
                 {l.label}
               </button>
@@ -54,7 +57,7 @@ export default function Navbar() {
 
         <button
           onClick={() => handleNav('#contacto')}
-          className="hidden lg:block bg-blue text-white px-6 py-2.5 text-[12px] font-semibold tracking-wide uppercase rounded-sm hover:bg-blue-dark transition-colors duration-200"
+          className="hidden lg:block bg-blue text-white px-6 py-2.5 text-[12px] font-semibold tracking-wide uppercase rounded-[6px] hover:bg-blue-dark transition-colors duration-200"
         >
           Contactar
         </button>
@@ -73,26 +76,14 @@ export default function Navbar() {
       {/* Mobile */}
       {open && (
         <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-9">
-          <button
-            className="absolute top-6 right-8 text-stone-400 text-3xl"
-            onClick={() => setOpen(false)}
-          >✕</button>
-          <div className="mb-4">
-            <Logo variant="dark" size="lg" />
-          </div>
+          <button className="absolute top-6 right-8 text-stone-400 text-3xl" onClick={() => setOpen(false)}>✕</button>
+          <div className="mb-4"><Logo variant="dark" size="lg" /></div>
           {links.map(l => (
-            <button
-              key={l.href}
-              onClick={() => handleNav(l.href)}
-              className="font-serif text-3xl text-stone-700 hover:text-blue transition-colors"
-            >
+            <button key={l.href} onClick={() => handleNav(l.href)} className="font-serif text-3xl text-stone-700 hover:text-blue transition-colors">
               {l.label}
             </button>
           ))}
-          <button
-            onClick={() => handleNav('#contacto')}
-            className="mt-2 bg-blue text-white px-8 py-3 uppercase tracking-widest text-sm font-semibold rounded-sm"
-          >
+          <button onClick={() => handleNav('#contacto')} className="mt-2 bg-blue text-white px-8 py-3 uppercase tracking-widest text-sm font-semibold rounded-[6px]">
             Contactar
           </button>
         </div>

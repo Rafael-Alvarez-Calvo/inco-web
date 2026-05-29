@@ -57,7 +57,7 @@ export default function Contact() {
           ref={rightRef as React.RefObject<HTMLDivElement>}
           className={`md:col-span-3 transition-all duration-700 delay-150 ${rightIn ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-9'}`}
         >
-          <div className="bg-stone-50 border border-stone-200 rounded p-11">
+          <div className="bg-stone-50 border border-stone-200 rounded-[4px] p-11">
             <h3 className="font-serif text-[22px] text-blue mb-7">Solicitar información</h3>
             {sent ? (
               <div className="text-center py-12">
@@ -78,7 +78,7 @@ export default function Contact() {
                   <label className="block text-[11px] tracking-widest uppercase text-stone-400 font-semibold mb-1.5" htmlFor="msg">Mensaje</label>
                   <textarea id="msg" rows={4}
                     placeholder="Cuéntanos los detalles de tu proyecto o consulta…"
-                    className="w-full bg-white border border-stone-200 rounded-sm px-3.5 py-2.5 text-[14.5px] text-stone-700 outline-none focus:border-blue resize-y transition-colors"
+                    className="w-full bg-white border border-stone-200 rounded-[4px] px-3.5 py-2.5 text-[14.5px] text-stone-700 outline-none focus:border-blue resize-y transition-colors"
                   />
                 </div>
                 <button type="submit"
@@ -104,7 +104,7 @@ function Field({ label, id, type, placeholder, required }: {
         {label}
       </label>
       <input id={id} type={type} placeholder={placeholder} required={required}
-        className="w-full bg-white border border-stone-200 rounded-sm px-3.5 py-2.5 text-[14.5px] text-stone-700 outline-none focus:border-blue transition-colors"
+        className="w-full bg-white border border-stone-200 rounded-[4px] px-3.5 py-2.5 text-[14.5px] text-stone-700 outline-none focus:border-blue transition-colors"
       />
     </div>
   )

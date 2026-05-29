@@ -38,7 +38,7 @@ export default function About() {
             {feats.map((f, i) => (
               <div
                 key={f.title}
-                className={`bg-stone-50 border border-stone-200 rounded-sm p-5 flex gap-3 items-start hover:border-amber hover:shadow-sm transition-all duration-200 ${leftIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+                className={`bg-stone-50 border border-stone-200 rounded-[4px] p-5 flex gap-3 items-start hover:border-amber hover:shadow-sm transition-all duration-200 ${leftIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
                 style={{ transitionDelay: `${300 + i * 80}ms` }}
               >
                 <span className="text-2xl mt-0.5">{f.icon}</span>

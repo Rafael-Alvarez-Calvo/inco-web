@@ -23,7 +23,7 @@ export default function Presence() {
           {offices.map((o, i) => (
             <div
               key={o.city}
-              className={`bg-white border border-stone-200 rounded-sm p-7 hover:shadow-md hover:border-blue transition-all duration-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`bg-white border border-stone-200 rounded-[4px] p-7 hover:shadow-md hover:border-blue transition-all duration-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <h3 className="font-serif text-[22px] text-blue font-semibold mb-3">{o.city}</h3>

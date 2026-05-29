@@ -33,7 +33,7 @@ export default function ProjectBanner() {
           <a
             href="#contacto"
             onClick={e => { e.preventDefault(); document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' }) }}
-            className="self-start bg-amber hover:bg-amber-dark text-white px-8 py-3.5 rounded-sm text-[12.5px] font-semibold uppercase tracking-wide transition-colors duration-200"
+            className="self-start bg-amber hover:bg-amber-dark text-white px-8 py-3.5 rounded-[6px] text-[12.5px] font-semibold uppercase tracking-wide transition-colors duration-200"
           >
             Consultar proyecto
           </a>

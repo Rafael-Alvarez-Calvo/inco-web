@@ -37,7 +37,7 @@ export default function Certifications() {
           {certs.map((c, i) => (
             <div
               key={c.name}
-              className={`bg-white border border-stone-200 rounded-sm p-9 hover:shadow-md transition-all duration-300 flex flex-col ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`bg-white border border-stone-200 rounded-[4px] p-9 hover:shadow-md transition-all duration-300 flex flex-col ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <span className="text-[40px] mb-5 block">{c.icon}</span>
