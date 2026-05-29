@@ -53,8 +53,8 @@ export default function Footer() {
           <div>
             <h4 className="text-[11px] tracking-[2px] uppercase text-white/40 font-semibold mb-5">Contacto</h4>
             <address className="text-[13px] leading-relaxed not-italic space-y-1">
-              <p>C/ Casas de Miravete 22A</p>
-              <p>3ª Planta – 28031 Madrid</p>
+              <p>Calle del Haya 4, 3º3</p>
+              <p>28044 Madrid</p>
               <br />
               <a href="tel:+34914994717" className="hover:text-white transition-colors block">+34 91 499 47 17</a>
               <a href="mailto:info@inco.com.es" className="hover:text-white transition-colors block">info@inco.com.es</a>

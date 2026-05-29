@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 
 const details = [
-  { icon: '📍', label: 'Sede principal',  value: 'C/ Casas de Miravete 22A\n3ª Planta, Oficina 3 — 28031 Madrid', href: null },
+  { icon: '📍', label: 'Sede principal',  value: 'Calle del Haya 4, 3º3\n28044 Madrid', href: null },
   { icon: '📞', label: 'Teléfono',        value: '+34 91 499 47 17', href: 'tel:+34914994717' },
   { icon: '✉️', label: 'Email',           value: 'info@inco.com.es', href: 'mailto:info@inco.com.es' },
   { icon: '🌐', label: 'Web',             value: 'inco.com.es', href: 'https://inco.com.es' },

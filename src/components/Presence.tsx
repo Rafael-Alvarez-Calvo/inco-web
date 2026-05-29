@@ -1,7 +1,7 @@
 import { useInView } from '../hooks/useInView'
 
 const offices = [
-  { city: 'Madrid',    role: 'Sede central', main: true,  address: 'C/ Casas de Miravete 22A\n3ª Planta, Oficina 3\n28031 Madrid' },
+  { city: 'Madrid',    role: 'Sede central', main: true,  address: 'Calle del Haya 4, 3º3\n28044 Madrid' },
   { city: 'Barcelona', role: 'Delegación',   main: false, address: 'Plaza del Centre 12\nLocal Planta Baja\n08014 Barcelona' },
   { city: 'Badajoz',   role: 'Delegación',   main: false, address: 'C/ Adelardo Covarsí, 10\nLocal D\n06005 Badajoz' },
   { city: 'Murcia',    role: 'Delegación',   main: false, address: 'Av. Tte. Gral. Gutiérrez Mellado, 9\n4ª Planta, Pta. 18\n30008 Murcia' },
