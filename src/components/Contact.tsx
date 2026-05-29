@@ -16,7 +16,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSent(true) }
 
   return (
-    <section id="contacto" className="py-20 md:py-28 px-6 md:px-16 bg-white">
+    <section id="contacto" className="section-pad bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-5 gap-10 md:gap-20">
 

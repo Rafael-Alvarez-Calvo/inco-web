@@ -19,7 +19,7 @@ export default function About() {
   const { ref: areasRef, inView: areasIn } = useInView(0.1)
 
   return (
-    <section id="nosotros" className="py-20 md:py-28 px-6 md:px-16 bg-white">
+    <section id="nosotros" className="section-pad bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
@@ -41,7 +41,7 @@ export default function About() {
             </blockquote>
 
             {/* Feature cards — 2 cols on mobile too, less padding */}
-            <div className="mt-7 grid grid-cols-2 gap-2.5">
+            <div className="mt-6 grid grid-cols-2 gap-2">
               {feats.map((f, i) => (
                 <div key={f.title}
                   className={`bg-stone-50 border border-stone-200 rounded-[4px] p-4 flex flex-col gap-2 hover:border-amber hover:shadow-sm transition-all duration-200 ${leftIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
@@ -77,7 +77,7 @@ export default function About() {
 
         {/* IUE Areas */}
         <div ref={areasRef as React.RefObject<HTMLDivElement>}
-          className="mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          className="mt-10 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-3">
           {areas.map((a, i) => (
             <div key={a.letter}
               className={`${a.color} rounded-[4px] p-6 md:p-8 flex items-center gap-5 transition-all duration-700 ${areasIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}

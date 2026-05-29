@@ -10,7 +10,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-blue text-white/70">
-      <div className="max-w-6xl mx-auto px-6 md:px-16 pt-12 md:pt-16 pb-8">
+      <div className="max-w-6xl mx-auto px-5 md:px-16 pt-10 md:pt-14 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-14 pb-12 border-b border-white/10">
 
           {/* Brand */}

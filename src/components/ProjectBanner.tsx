@@ -12,7 +12,7 @@ export default function ProjectBanner() {
             loading="lazy"
           />
         </div>
-        <div className="px-7 py-14 md:px-16 md:py-20 flex flex-col justify-center">
+        <div className="px-6 py-10 md:px-16 md:py-16 flex flex-col justify-center">
           <div className="inline-flex items-center gap-2.5 text-[11px] tracking-[3px] uppercase text-white/50 font-semibold mb-6 before:content-[''] before:block before:w-7 before:h-0.5 before:bg-amber">
             Infraestructura vial
           </div>

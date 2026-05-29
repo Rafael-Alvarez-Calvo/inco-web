@@ -74,8 +74,8 @@ export default function Gallery() {
   }, [lightbox])
 
   return (
-    <section id="galeria" className="py-20 md:py-28 bg-stone-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 md:px-16">
+    <section id="galeria" className="py-14 md:py-24 bg-stone-50 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-5 md:px-16">
         {/* Header */}
         <div ref={headRef as React.RefObject<HTMLDivElement>}
           className={`transition-all duration-700 ${headIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-4`}>
@@ -90,7 +90,7 @@ export default function Gallery() {
       </div>
 
       {/* Carousel */}
-      <div className="max-w-6xl mx-auto px-6 md:px-16">
+      <div className="max-w-6xl mx-auto px-5 md:px-16">
         <div className="relative">
           {/* Cards grid */}
           <div

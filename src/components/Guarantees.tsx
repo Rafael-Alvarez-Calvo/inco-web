@@ -12,7 +12,7 @@ export default function Guarantees() {
   const { ref: rightRef, inView: rightIn } = useInView(0.1)
 
   return (
-    <section id="garantias" className="py-20 md:py-28 px-6 md:px-16 bg-white">
+    <section id="garantias" className="section-pad bg-white">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
         {/* Left — images */}
