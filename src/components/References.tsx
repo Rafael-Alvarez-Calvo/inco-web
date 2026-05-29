@@ -74,7 +74,7 @@ export default function References() {
   const filtered = active === 'todos' ? refs : refs.filter(r => r.cat === active)
 
   return (
-    <section id="referencias" className="py-28 px-16 bg-white">
+    <section id="referencias" className="py-20 md:py-28 px-6 md:px-16 bg-white">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}

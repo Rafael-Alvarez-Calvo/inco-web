@@ -16,7 +16,7 @@ export default function Services() {
   const { ref, inView } = useInView(0.05)
 
   return (
-    <section id="servicios" className="py-28 px-16 bg-stone-50">
+    <section id="servicios" className="py-20 md:py-28 px-6 md:px-16 bg-stone-50">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-6">
           <div>

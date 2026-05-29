@@ -11,7 +11,7 @@ export default function Presence() {
   const { ref, inView } = useInView(0.1)
 
   return (
-    <section id="presencia" className="py-28 px-16 bg-stone-50">
+    <section id="presencia" className="py-20 md:py-28 px-6 md:px-16 bg-stone-50">
       <div className="max-w-6xl mx-auto">
         <div className="eyebrow mb-4">Dónde estamos</div>
         <h2 className="section-title mb-12">Presencia <em>nacional</em></h2>

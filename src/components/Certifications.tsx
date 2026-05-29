@@ -29,7 +29,7 @@ export default function Certifications() {
   const { ref: cardsRef, inView: cardsIn } = useInView(0.05)
 
   return (
-    <section id="calidad" className="py-28 px-16 bg-stone-50">
+    <section id="calidad" className="py-20 md:py-28 px-6 md:px-16 bg-stone-50">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
