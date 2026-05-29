@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import Logo from './Logo'
 
 const links = [
-  { href: '#nosotros',  label: 'Nosotros' },
-  { href: '#servicios', label: 'Servicios' },
-  { href: '#galeria',   label: 'Proyectos' },
-  { href: '#garantias', label: 'Garantías' },
-  { href: '#presencia', label: 'Presencia' },
+  { href: '#nosotros',    label: 'Nosotros' },
+  { href: '#servicios',   label: 'Servicios' },
+  { href: '#galeria',     label: 'Proyectos' },
+  { href: '#referencias', label: 'Referencias' },
+  { href: '#calidad',     label: 'Calidad' },
 ]
 
 export default function Navbar() {
@@ -26,58 +26,36 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 md:px-16 h-[70px] transition-all duration-300 ${
-          scrolled
-            ? 'bg-white border-b border-stone-200 shadow-md'
-            : 'bg-white border-b border-stone-200'
-        }`}
-      >
-        <a
-          href="#"
-          onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-          className="flex-shrink-0"
-        >
+      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-12 h-[70px] bg-white border-b border-stone-200 transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}>
+        <a href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="flex-shrink-0">
           <Logo variant="dark" size="md" />
         </a>
 
-        {/* Desktop */}
-        <ul className="hidden lg:flex gap-8 list-none">
+        <ul className="hidden lg:flex gap-7 list-none">
           {links.map(l => (
             <li key={l.href}>
-              <button
-                onClick={() => handleNav(l.href)}
-                className="text-[12.5px] tracking-wide uppercase text-stone-600 font-medium hover:text-blue transition-colors duration-200"
-              >
+              <button onClick={() => handleNav(l.href)} className="text-[12px] tracking-wide uppercase text-stone-600 font-medium hover:text-blue transition-colors duration-200">
                 {l.label}
               </button>
             </li>
           ))}
         </ul>
 
-        <button
-          onClick={() => handleNav('#contacto')}
-          className="hidden lg:block bg-blue text-white px-6 py-2.5 text-[12px] font-semibold tracking-wide uppercase rounded-[6px] hover:bg-blue-dark transition-colors duration-200"
-        >
+        <button onClick={() => handleNav('#contacto')} className="hidden lg:block bg-blue text-white px-5 py-2.5 text-[12px] font-semibold tracking-wide uppercase rounded-[6px] hover:bg-blue-dark transition-colors duration-200">
           Contactar
         </button>
 
-        <button
-          className="lg:hidden flex flex-col gap-1.5 p-1"
-          onClick={() => setOpen(true)}
-          aria-label="Abrir menú"
-        >
+        <button className="lg:hidden flex flex-col gap-1.5 p-1" onClick={() => setOpen(true)} aria-label="Abrir menú">
           <span className="block w-6 h-0.5 bg-stone-600 rounded" />
           <span className="block w-6 h-0.5 bg-stone-600 rounded" />
           <span className="block w-6 h-0.5 bg-stone-600 rounded" />
         </button>
       </nav>
 
-      {/* Mobile */}
       {open && (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-9">
+        <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-8">
           <button className="absolute top-6 right-8 text-stone-400 text-3xl" onClick={() => setOpen(false)}>✕</button>
-          <div className="mb-4"><Logo variant="dark" size="lg" /></div>
+          <div className="mb-2"><Logo variant="dark" size="lg" /></div>
           {links.map(l => (
             <button key={l.href} onClick={() => handleNav(l.href)} className="font-serif text-3xl text-stone-700 hover:text-blue transition-colors">
               {l.label}

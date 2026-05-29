@@ -4,6 +4,7 @@ import IntroStrip     from './components/IntroStrip'
 import About          from './components/About'
 import Services       from './components/Services'
 import Gallery        from './components/Gallery'
+import References     from './components/References'
 import ProjectBanner  from './components/ProjectBanner'
 import Guarantees     from './components/Guarantees'
 import Presence       from './components/Presence'
@@ -21,6 +22,7 @@ export default function App() {
         <About />
         <Services />
         <Gallery />
+        <References />
         <ProjectBanner />
         <Guarantees />
         <Presence />
