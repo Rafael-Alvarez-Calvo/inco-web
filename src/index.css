@@ -18,14 +18,18 @@
   }
   .eyebrow::before {
     content: '';
-    @apply block w-7 h-0.5 bg-amber;
+    @apply block w-7 h-0.5 bg-amber flex-shrink-0;
   }
   .section-title {
     @apply font-serif text-blue font-semibold leading-tight;
-    font-size: clamp(34px, 4vw, 54px);
+    font-size: clamp(30px, 4vw, 54px);
   }
   .section-title em {
     font-style: italic !important;
     color: #c17f3e;
+  }
+  /* Consistent section spacing — tighter on mobile */
+  .section-pad {
+    @apply py-14 md:py-24 px-5 md:px-16;
   }
 }
