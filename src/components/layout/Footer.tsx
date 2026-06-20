@@ -110,6 +110,49 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* ── Kit Digital ─────────────────────────────────────────────────── */}
+        <div className="border-t border-white/10 pt-8 pb-2 text-center">
+          <p className="text-[10.5px] tracking-widest uppercase text-white/50 font-semibold mb-5 leading-relaxed max-w-lg mx-auto">
+            Programa Kit Digital financiado por los fondos Next Generation
+            <br className="hidden sm:block" /> del Mecanismo de Recuperación y
+            Resiliencia
+          </p>
+          <div className="bg-white rounded-[4px] px-6 py-4 flex flex-wrap items-center justify-center gap-6 md:gap-10 mb-5">
+            <img
+              src="/images/kit-digital-ue-nextgeneration.png"
+              alt="Financiado por la Unión Europea – NextGenerationEU"
+              className="h-11 object-contain"
+            />
+            <img
+              src="/images/kit-digital-gobierno-espana.png"
+              alt="Gobierno de España – Ministerio para la Transformación Digital y de la Función Pública"
+              className="h-11 object-contain"
+            />
+            <img
+              src="/images/kit-digital-redes.png"
+              alt="red.es"
+              className="h-9 object-contain"
+            />
+            <img
+              src="/images/kit-digital-plan-recuperacion.png"
+              alt="Plan de Recuperación, Transformación y Resiliencia"
+              className="h-11 object-contain"
+            />
+            <img
+              src="/images/kit-digital-logo.png"
+              alt="Kit Digital"
+              className="h-9 object-contain"
+            />
+          </div>
+          <p className="text-[11px] mx-auto text-white/50 leading-relaxed italic w-full max-w-[calc(100%-15rem)]">
+            «Financiado por la Unión Europea – NextGenerationEU. Sin embargo,
+            los puntos de vista y las opiniones expresadas son únicamente los
+            del autor o autores y no reflejan necesariamente los de la Unión
+            Europea o la Comisión Europea. Ni la Unión Europea ni la Comisión
+            Europea pueden ser consideradas responsables de las mismas»
+          </p>
+        </div>
+
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-7 text-[12.5px] text-white/40">
           <p>
             © {new Date().getFullYear()} INCO Estudio Técnico, S.L. Todos los

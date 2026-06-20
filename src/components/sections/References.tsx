@@ -1,5 +1,8 @@
 import { useState, useMemo } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useInView } from '../../hooks/useInView'
+
+const PAGE_SIZE = 10
 
 type Category = 'todos' | 'viaria' | 'ferroviaria' | 'hidraulica' | 'urbanismo' | 'edificacion'
 
@@ -67,14 +70,22 @@ const TAG_COLORS: Record<string, string> = {
 }
 
 export const References = () => {
-  const [active, setActive]                   = useState<Category>('todos')
-  const { ref: headRef, inView: headIn }      = useInView(0.1)
-  const { ref: listRef, inView: listIn }      = useInView(0.05)
+  const [active, setActive]              = useState<Category>('todos')
+  const [page,   setPage]               = useState(1)
+  const { ref: headRef, inView: headIn } = useInView(0.1)
+  const { ref: listRef, inView: listIn } = useInView(0.05)
 
   const filtered = useMemo(
     () => active === 'todos' ? REFS : REFS.filter(r => r.cat === active),
     [active],
   )
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const rangeFrom  = (page - 1) * PAGE_SIZE + 1
+  const rangeTo    = Math.min(page * PAGE_SIZE, filtered.length)
+
+  const goTo = (p: number) => setPage(Math.max(1, Math.min(p, totalPages)))
 
   return (
     <section id="referencias" className="py-16 md:py-28 px-4 sm:px-8 lg:px-16 bg-white">
@@ -99,7 +110,7 @@ export const References = () => {
           {CATS.map(c => (
             <button
               key={c.key}
-              onClick={() => setActive(c.key)}
+              onClick={() => { setActive(c.key); setPage(1) }}
               className={`px-4 py-2 rounded-[6px] text-[12px] font-medium tracking-wide uppercase transition-all duration-200 ${
                 active === c.key
                   ? 'bg-blue text-white shadow-sm'
@@ -124,11 +135,11 @@ export const References = () => {
               <div className="col-span-3">Servicio</div>
             </div>
 
-            {filtered.map((r, i) => (
+            {paginated.map((r, i) => (
               <div
-                key={i}
+                key={`${page}-${i}`}
                 className={`grid grid-cols-12 items-start px-5 py-4 border-b border-stone-100 last:border-b-0 hover:bg-stone-50 transition-colors duration-150 ${listIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
-                style={{ transitionDelay: `${Math.min(i, 10) * 40}ms` }}
+                style={{ transitionDelay: `${i * 40}ms` }}
               >
                 <div className="col-span-9 md:col-span-5 pr-4">
                   <p className="text-[13.5px] text-stone-700 font-medium leading-snug">{r.title}</p>
@@ -150,8 +161,47 @@ export const References = () => {
             ))}
           </div>
 
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-1.5 mt-6">
+              <button
+                onClick={() => goTo(page - 1)}
+                disabled={page === 1}
+                aria-label="Página anterior"
+                className="w-8 h-8 flex items-center justify-center rounded-[4px] border border-stone-200 text-stone-500 hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeft size={15} aria-hidden="true" />
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                <button
+                  key={p}
+                  onClick={() => goTo(p)}
+                  aria-label={`Página ${p}`}
+                  aria-current={p === page ? 'page' : undefined}
+                  className={`w-8 h-8 flex items-center justify-center rounded-[4px] text-[12px] font-medium transition-colors ${
+                    p === page
+                      ? 'bg-blue text-white shadow-sm'
+                      : 'border border-stone-200 text-stone-500 hover:bg-stone-100'
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+
+              <button
+                onClick={() => goTo(page + 1)}
+                disabled={page === totalPages}
+                aria-label="Página siguiente"
+                className="w-8 h-8 flex items-center justify-center rounded-[4px] border border-stone-200 text-stone-500 hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronRight size={15} aria-hidden="true" />
+              </button>
+            </div>
+          )}
+
           <p className="text-[12px] text-stone-400 mt-4 text-right">
-            Mostrando {filtered.length} de {REFS.length} referencias — relación enunciativa no exhaustiva
+            Mostrando {rangeFrom}–{rangeTo} de {filtered.length} referencias — relación enunciativa no exhaustiva
           </p>
         </div>
       </div>
