@@ -43,6 +43,7 @@ export const Navbar = () => {
   return (
     <>
       <nav
+        aria-label="Navegación principal"
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-12 h-[70px] bg-white border-b border-stone-200 transition-shadow duration-300 ${scrolled ? "shadow-md" : ""}`}
       >
         {/* Logo — home: scroll to top · legal: navigate to / */}
@@ -89,6 +90,8 @@ export const Navbar = () => {
           className="lg:hidden flex flex-col gap-1.5 p-1"
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menú"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           <span className="block w-6 h-0.5 bg-stone-600 rounded" />
           <span className="block w-6 h-0.5 bg-stone-600 rounded" />
@@ -98,7 +101,13 @@ export const Navbar = () => {
 
       {/* Mobile fullscreen overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-8">
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menú de navegación"
+          className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center gap-8"
+        >
           <button
             className="absolute top-6 right-8 w-10 h-10 flex items-center justify-center text-stone-400 hover:text-stone-600 rounded-full hover:bg-stone-100 transition-colors"
             onClick={() => setMenuOpen(false)}

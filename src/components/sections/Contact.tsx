@@ -33,7 +33,7 @@ export const Contact = () => {
   } = useContactForm({ source: 'contact-section' })
 
   return (
-    <section id="contacto" className="py-16 md:py-28 px-4 sm:px-8 lg:px-16 bg-white">
+    <section id="contacto" aria-labelledby="contacto-titulo" className="py-16 md:py-28 px-4 sm:px-8 lg:px-16 bg-white">
       <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-8 md:gap-12 lg:gap-20">
 
         {/* Left info */}
@@ -42,7 +42,7 @@ export const Contact = () => {
           className={`md:col-span-2 transition-all duration-700 ${leftIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-9'}`}
         >
           <div className="eyebrow mb-4">Contacto</div>
-          <h2 className="section-title mb-6">Hablemos de<br />tu <em>proyecto</em></h2>
+          <h2 id="contacto-titulo" className="section-title mb-6">Hablemos de<br />tu <em>proyecto</em></h2>
           <p className="text-[16px] text-stone-500 leading-relaxed mb-10">
             ¿Tienes un proyecto en marcha o necesitas asesoramiento técnico? Nuestro equipo te responderá en menos de 24 horas.
           </p>

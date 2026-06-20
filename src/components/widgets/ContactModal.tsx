@@ -10,9 +10,16 @@ interface Props {
 }
 
 export const ContactModal = ({ onClose }: Props) => {
-  const [entered, setEntered] = useState(false)
-  const [leaving, setLeaving] = useState(false)
-  const dialogRef             = useRef<HTMLDivElement>(null)
+  const [entered, setEntered]   = useState(false)
+  const [leaving, setLeaving]   = useState(false)
+  const dialogRef               = useRef<HTMLDivElement>(null)
+  const prevFocusRef            = useRef<HTMLElement | null>(null)
+
+  // Save the element that triggered the modal so we can restore focus on close
+  useEffect(() => {
+    prevFocusRef.current = document.activeElement as HTMLElement
+    return () => { prevFocusRef.current?.focus() }
+  }, [])
 
   const {
     register, errors, status, errorMsg,
