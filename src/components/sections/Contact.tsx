@@ -1,9 +1,13 @@
-import { useState, useCallback } from 'react'
 import { MapPin, Phone, Mail, Globe, type LucideIcon } from 'lucide-react'
-import { useInView }    from '../../hooks/useInView'
-import { FormField }    from '../ui/FormField'
-import { INCO_ADDRESS, INCO_PHONE, INCO_PHONE_HREF, INCO_EMAIL, INCO_EMAIL_HREF, INCO_WEB, INCO_WEB_HREF } from '../../constants'
-import { Turnstile }    from '../widgets/Turnstile'
+import { useInView }      from '../../hooks/useInView'
+import { FormField }      from '../ui/FormField'
+import { Turnstile }      from '../widgets/Turnstile'
+import { useContactForm } from '../../hooks/useContactForm'
+import {
+  INCO_ADDRESS, INCO_PHONE, INCO_PHONE_HREF,
+  INCO_EMAIL,  INCO_EMAIL_HREF,
+  INCO_WEB,    INCO_WEB_HREF,
+} from '../../constants'
 
 interface Detail {
   Icon:  LucideIcon
@@ -23,17 +27,10 @@ export const Contact = () => {
   const { ref: leftRef,  inView: leftIn  } = useInView(0.1)
   const { ref: rightRef, inView: rightIn } = useInView(0.1)
 
-  const [sent, setSent]   = useState(false)
-  const [token, setToken] = useState('')
-
-  const handleVerify = useCallback((t: string) => setToken(t), [])
-  const handleExpire = useCallback(() => setToken(''), [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!token) return
-    setSent(true)
-  }
+  const {
+    register, errors, status, errorMsg,
+    token, handleVerify, handleExpire, onSubmit,
+  } = useContactForm({ source: 'contact-section' })
 
   return (
     <section id="contacto" className="py-16 md:py-28 px-4 sm:px-8 lg:px-16 bg-white">
@@ -82,7 +79,8 @@ export const Contact = () => {
         >
           <div className="bg-stone-50 border border-stone-200 rounded-[4px] p-5 sm:p-8 md:p-11">
             <h3 className="font-serif text-[22px] text-blue mb-7">Solicitar información</h3>
-            {sent ? (
+
+            {status === 'success' ? (
               <div className="text-center py-12">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-amber-light flex items-center justify-center">
                   <svg width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -93,20 +91,69 @@ export const Contact = () => {
                 <p className="text-stone-400">Nos pondremos en contacto contigo en menos de 24 horas.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={onSubmit} noValidate className="space-y-5">
+                {status === 'error' && (
+                  <div role="alert" className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-[4px] px-4 py-3 text-[13.5px] text-red-700">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 flex-shrink-0" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                    <span>{errorMsg || 'Ha ocurrido un error. Por favor, inténtalo de nuevo.'}</span>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  <FormField label="Nombre *"  id="nombre"  type="text"  placeholder="Tu nombre completo" required />
-                  <FormField label="Empresa"   id="empresa" type="text"  placeholder="Razón social" />
+                  <FormField
+                    label="Nombre *"
+                    id="nombre"
+                    type="text"
+                    placeholder="Tu nombre completo"
+                    required
+                    registration={register('nombre')}
+                    error={errors.nombre?.message}
+                  />
+                  <FormField
+                    label="Empresa"
+                    id="empresa"
+                    type="text"
+                    placeholder="Razón social"
+                    registration={register('empresa')}
+                    error={errors.empresa?.message}
+                  />
                 </div>
-                <FormField label="Email *"          id="email" type="email" placeholder="correo@empresa.com" required />
-                <FormField label="Teléfono"          id="tel"   type="tel"   placeholder="+34 600 000 000" />
-                <FormField label="Tipo de proyecto" id="tipo"  type="text"  placeholder="Dirección de obra, redacción de proyecto…" />
+                <FormField
+                  label="Email *"
+                  id="email"
+                  type="email"
+                  placeholder="correo@empresa.com"
+                  required
+                  registration={register('email')}
+                  error={errors.email?.message}
+                />
+                <FormField
+                  label="Teléfono"
+                  id="tel"
+                  type="tel"
+                  placeholder="+34 600 000 000"
+                  registration={register('tel')}
+                  error={errors.tel?.message}
+                />
+                <FormField
+                  label="Tipo de proyecto"
+                  id="tipo"
+                  type="text"
+                  placeholder="Dirección de obra, redacción de proyecto…"
+                  registration={register('tipo')}
+                  error={errors.tipo?.message}
+                />
                 <div>
-                  <label className="block text-[11px] tracking-widest uppercase text-stone-400 font-semibold mb-1.5" htmlFor="msg">Mensaje</label>
+                  <label className="block text-[11px] tracking-widest uppercase text-stone-400 font-semibold mb-1.5" htmlFor="msg">
+                    Mensaje
+                  </label>
                   <textarea
                     id="msg"
                     rows={4}
                     placeholder="Cuéntanos los detalles de tu proyecto o consulta…"
+                    {...register('msg')}
                     className="w-full bg-white border border-stone-200 rounded-[4px] px-3.5 py-2.5 text-[14.5px] text-stone-700 outline-none focus:border-blue resize-y transition-colors"
                   />
                 </div>
@@ -115,10 +162,18 @@ export const Contact = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={!token}
-                  className="w-full bg-blue hover:bg-blue-dark disabled:opacity-40 disabled:cursor-not-allowed text-white py-3.5 rounded-sm text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200"
+                  disabled={!token || status === 'sending'}
+                  className="w-full bg-blue hover:bg-blue-dark disabled:opacity-40 disabled:cursor-not-allowed text-white py-3.5 rounded-sm text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200 flex items-center justify-center gap-2"
                 >
-                  Enviar consulta
+                  {status === 'sending' ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                      </svg>
+                      Enviando…
+                    </>
+                  ) : 'Enviar consulta'}
                 </button>
               </form>
             )}

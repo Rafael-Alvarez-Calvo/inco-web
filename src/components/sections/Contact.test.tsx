@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import { Contact } from './Contact'
 
-// Mock Turnstile to keep form tests simple
 vi.mock('../widgets/Turnstile', () => ({
   Turnstile: ({ onVerify }: { onVerify: (t: string) => void }) => (
     <button data-testid="mock-turnstile" onClick={() => onVerify('mock-token')}>
@@ -11,8 +10,23 @@ vi.mock('../widgets/Turnstile', () => ({
   ),
 }))
 
-beforeEach(() => vi.useFakeTimers())
-afterEach(() => vi.useRealTimers())
+let fetchSpy: ReturnType<typeof vi.spyOn>
+
+beforeEach(() => {
+  vi.useFakeTimers()
+  fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+    json: async () => ({ success: true }),
+  } as Response)
+})
+afterEach(() => {
+  vi.useRealTimers()
+  fetchSpy.mockRestore()
+})
+
+function fillRequired() {
+  fireEvent.change(screen.getByLabelText(/nombre \*/i), { target: { value: 'Test Usuario' } })
+  fireEvent.change(screen.getByLabelText(/email \*/i),  { target: { value: 'test@test.com' } })
+}
 
 describe('Contact', () => {
   it('renders section with id="contacto"', () => {
@@ -54,17 +68,43 @@ describe('Contact', () => {
     await act(async () => {
       fireEvent.click(screen.getByTestId('mock-turnstile'))
     })
+    fillRequired()
     await act(async () => {
       fireEvent.submit(document.querySelector('form')!)
     })
     expect(screen.getByText('Mensaje enviado')).toBeInTheDocument()
   })
 
-  it('submit without token does nothing', async () => {
+  it('shows validation errors when required fields are empty', async () => {
     render(<Contact />)
-    const form = document.querySelector('form')!
     await act(async () => {
-      form.dispatchEvent(new Event('submit', { bubbles: true }))
+      fireEvent.click(screen.getByTestId('mock-turnstile'))
+    })
+    await act(async () => {
+      fireEvent.submit(document.querySelector('form')!)
+    })
+    expect(screen.getByText('El nombre es obligatorio')).toBeInTheDocument()
+    expect(screen.getByText('El email es obligatorio')).toBeInTheDocument()
+  })
+
+  it('shows email format error when email is invalid', async () => {
+    render(<Contact />)
+    fireEvent.change(screen.getByLabelText(/nombre \*/i), { target: { value: 'Test' } })
+    fireEvent.change(screen.getByLabelText(/email \*/i),  { target: { value: 'no-es-un-email' } })
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('mock-turnstile'))
+    })
+    await act(async () => {
+      fireEvent.submit(document.querySelector('form')!)
+    })
+    expect(screen.getByText('Introduce un email válido')).toBeInTheDocument()
+  })
+
+  it('submit with valid fields but no token does not show success', async () => {
+    render(<Contact />)
+    fillRequired()
+    await act(async () => {
+      fireEvent.submit(document.querySelector('form')!)
     })
     expect(screen.queryByText('Mensaje enviado')).not.toBeInTheDocument()
   })

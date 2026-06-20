@@ -25,7 +25,7 @@ describe('Turnstile', () => {
 
   it('calls window.turnstile.render() when already available', async () => {
     const turnstile = buildTurnstile()
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
 
     await act(async () => {
       render(<Turnstile onVerify={vi.fn()} />)
@@ -43,7 +43,7 @@ describe('Turnstile', () => {
     expect(turnstile.render).not.toHaveBeenCalled()
 
     // Now make it available and advance interval
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
     await act(async () => { vi.advanceTimersByTime(100) })
 
     expect(turnstile.render).toHaveBeenCalled()
@@ -51,7 +51,7 @@ describe('Turnstile', () => {
 
   it('calls window.turnstile.remove() on unmount', async () => {
     const turnstile = buildTurnstile()
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
 
     let unmount!: () => void
     await act(async () => {
@@ -74,7 +74,7 @@ describe('Turnstile', () => {
       remove: vi.fn(),
       reset: vi.fn(),
     }
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
 
     await act(async () => { render(<Turnstile onVerify={onVerify} />) })
 
@@ -94,7 +94,7 @@ describe('Turnstile', () => {
       remove: vi.fn(),
       reset: vi.fn(),
     }
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
 
     await act(async () => { render(<Turnstile onVerify={vi.fn()} onError={onError} />) })
 
@@ -114,7 +114,7 @@ describe('Turnstile', () => {
       remove: vi.fn(),
       reset: vi.fn(),
     }
-    ;(window as Window & { turnstile: typeof turnstile }).turnstile = turnstile
+    ;(window as unknown as { turnstile: typeof turnstile }).turnstile = turnstile
 
     await act(async () => { render(<Turnstile onVerify={vi.fn()} onExpire={onExpire} />) })
 

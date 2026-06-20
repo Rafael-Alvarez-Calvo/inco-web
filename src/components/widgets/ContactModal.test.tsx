@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import { ContactModal } from './ContactModal'
 
-// Mock Turnstile so tests don't depend on external script loading
 vi.mock('./Turnstile', () => ({
   Turnstile: ({ onVerify }: { onVerify: (t: string) => void }) => (
     <button data-testid="mock-turnstile" onClick={() => onVerify('mock-token')}>
@@ -11,13 +10,27 @@ vi.mock('./Turnstile', () => ({
   ),
 }))
 
-beforeEach(() => vi.useFakeTimers())
-afterEach(() => vi.useRealTimers())
+let fetchSpy: ReturnType<typeof vi.spyOn>
+
+beforeEach(() => {
+  vi.useFakeTimers()
+  fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+    json: async () => ({ success: true }),
+  } as Response)
+})
+afterEach(() => {
+  vi.useRealTimers()
+  fetchSpy.mockRestore()
+})
 
 async function openModal(onClose = vi.fn()) {
   render(<ContactModal onClose={onClose} />)
-  // Flush double-rAF (mapped to setTimeout(0) via our mock)
   await act(async () => { vi.runAllTimers() })
+}
+
+function fillRequired() {
+  fireEvent.change(screen.getByLabelText(/nombre \*/i), { target: { value: 'Test Usuario' } })
+  fireEvent.change(screen.getByLabelText(/email \*/i),  { target: { value: 'test@test.com' } })
 }
 
 describe('ContactModal', () => {
@@ -69,10 +82,23 @@ describe('ContactModal', () => {
     await act(async () => {
       fireEvent.click(screen.getByTestId('mock-turnstile'))
     })
+    fillRequired()
     await act(async () => {
       fireEvent.submit(document.querySelector('form')!)
     })
     expect(screen.getByText('Mensaje enviado')).toBeInTheDocument()
+  })
+
+  it('shows validation errors when required fields are empty', async () => {
+    await openModal()
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('mock-turnstile'))
+    })
+    await act(async () => {
+      fireEvent.submit(document.querySelector('form')!)
+    })
+    expect(screen.getByText('El nombre es obligatorio')).toBeInTheDocument()
+    expect(screen.getByText('El email es obligatorio')).toBeInTheDocument()
   })
 
   it('"Cerrar" on success state calls onClose', async () => {
@@ -81,10 +107,10 @@ describe('ContactModal', () => {
     await act(async () => {
       fireEvent.click(screen.getByTestId('mock-turnstile'))
     })
+    fillRequired()
     await act(async () => {
       fireEvent.submit(document.querySelector('form')!)
     })
-    // The success "Cerrar" has text content; the X button only has aria-label
     await act(async () => {
       fireEvent.click(screen.getByText('Cerrar', { selector: 'button' }))
     })

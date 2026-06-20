@@ -32,4 +32,24 @@ describe('FormField', () => {
     render(<FormField label="Opt" id="opt" type="text" placeholder="" />)
     expect(screen.getByRole('textbox')).not.toBeRequired()
   })
+
+  it('shows error message when error prop is provided', () => {
+    render(<FormField label="Email *" id="email" type="email" placeholder="a@b.com" error="El email es obligatorio" />)
+    expect(screen.getByRole('alert')).toHaveTextContent('El email es obligatorio')
+  })
+
+  it('does not render error element when no error', () => {
+    render(<FormField label="Email *" id="email" type="email" placeholder="a@b.com" />)
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  })
+
+  it('applies error border class when error is present', () => {
+    render(<FormField label="Email *" id="email" type="email" placeholder="a@b.com" error="Error" />)
+    expect(screen.getByRole('textbox')).toHaveClass('border-red-400')
+  })
+
+  it('applies aria-invalid when error is present', () => {
+    render(<FormField label="Email *" id="email" type="email" placeholder="a@b.com" error="Error" />)
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
+  })
 })

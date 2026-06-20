@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { X } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { X }             from 'lucide-react'
 import { Turnstile }     from './Turnstile'
 import { FormField }     from '../ui/FormField'
 import { MODAL_EXIT_MS } from '../../constants'
+import { useContactForm } from '../../hooks/useContactForm'
 
 interface Props {
   onClose: () => void
@@ -11,12 +12,12 @@ interface Props {
 export const ContactModal = ({ onClose }: Props) => {
   const [entered, setEntered] = useState(false)
   const [leaving, setLeaving] = useState(false)
-  const [sent, setSent]       = useState(false)
-  const [token, setToken]     = useState('')
   const dialogRef             = useRef<HTMLDivElement>(null)
 
-  const handleVerify = useCallback((t: string) => setToken(t), [])
-  const handleExpire = useCallback(() => setToken(''), [])
+  const {
+    register, errors, status, errorMsg,
+    token, handleVerify, handleExpire, onSubmit,
+  } = useContactForm({ source: 'legal-modal' })
 
   useEffect(() => {
     let id1: number, id2: number
@@ -82,7 +83,7 @@ export const ContactModal = ({ onClose }: Props) => {
 
           {/* Body */}
           <div className="px-6 py-5">
-            {sent ? (
+            {status === 'success' ? (
               <div className="text-center py-8">
                 <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-amber-light flex items-center justify-center">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -99,14 +100,60 @@ export const ContactModal = ({ onClose }: Props) => {
                 </button>
               </div>
             ) : (
-              <form onSubmit={e => { e.preventDefault(); if (!token) return; setSent(true) }} className="space-y-4">
+              <form onSubmit={onSubmit} noValidate className="space-y-4">
+                {status === 'error' && (
+                  <div role="alert" className="flex items-start gap-3 bg-red-50 border border-red-200 rounded-[4px] px-4 py-3 text-[13px] text-red-700">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" className="mt-0.5 flex-shrink-0" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                    <span>{errorMsg || 'Ha ocurrido un error. Por favor, inténtalo de nuevo.'}</span>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-3">
-                  <FormField label="Nombre *"  id="m-nombre"  type="text"  placeholder="Tu nombre completo" required />
-                  <FormField label="Empresa"   id="m-empresa" type="text"  placeholder="Razón social" />
+                  <FormField
+                    label="Nombre *"
+                    id="m-nombre"
+                    type="text"
+                    placeholder="Tu nombre completo"
+                    required
+                    registration={register('nombre')}
+                    error={errors.nombre?.message}
+                  />
+                  <FormField
+                    label="Empresa"
+                    id="m-empresa"
+                    type="text"
+                    placeholder="Razón social"
+                    registration={register('empresa')}
+                    error={errors.empresa?.message}
+                  />
                 </div>
-                <FormField label="Email *"  id="m-email" type="email" placeholder="correo@empresa.com" required />
-                <FormField label="Teléfono" id="m-tel"   type="tel"   placeholder="+34 600 000 000" />
-                <FormField label="Tipo de proyecto" id="m-tipo" type="text" placeholder="Dirección de obra, redacción de proyecto…" />
+                <FormField
+                  label="Email *"
+                  id="m-email"
+                  type="email"
+                  placeholder="correo@empresa.com"
+                  required
+                  registration={register('email')}
+                  error={errors.email?.message}
+                />
+                <FormField
+                  label="Teléfono"
+                  id="m-tel"
+                  type="tel"
+                  placeholder="+34 600 000 000"
+                  registration={register('tel')}
+                  error={errors.tel?.message}
+                />
+                <FormField
+                  label="Tipo de proyecto"
+                  id="m-tipo"
+                  type="text"
+                  placeholder="Dirección de obra, redacción de proyecto…"
+                  registration={register('tipo')}
+                  error={errors.tipo?.message}
+                />
                 <div>
                   <label
                     htmlFor="m-msg"
@@ -118,6 +165,7 @@ export const ContactModal = ({ onClose }: Props) => {
                     id="m-msg"
                     rows={3}
                     placeholder="Cuéntanos los detalles de tu proyecto o consulta…"
+                    {...register('msg')}
                     className="w-full bg-white border border-stone-200 rounded-[4px] px-3.5 py-2.5 text-[14px] text-stone-700 outline-none focus:border-blue resize-none transition-colors"
                   />
                 </div>
@@ -126,10 +174,18 @@ export const ContactModal = ({ onClose }: Props) => {
                 </div>
                 <button
                   type="submit"
-                  disabled={!token}
-                  className="w-full bg-blue hover:bg-blue-dark disabled:opacity-40 disabled:cursor-not-allowed text-white py-3 rounded-[4px] text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200"
+                  disabled={!token || status === 'sending'}
+                  className="w-full bg-blue hover:bg-blue-dark disabled:opacity-40 disabled:cursor-not-allowed text-white py-3 rounded-[4px] text-[13px] font-semibold uppercase tracking-wide transition-colors duration-200 flex items-center justify-center gap-2"
                 >
-                  Enviar consulta
+                  {status === 'sending' ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                      </svg>
+                      Enviando…
+                    </>
+                  ) : 'Enviar consulta'}
                 </button>
               </form>
             )}
@@ -139,4 +195,3 @@ export const ContactModal = ({ onClose }: Props) => {
     </>
   )
 }
-

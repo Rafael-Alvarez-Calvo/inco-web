@@ -38,6 +38,6 @@ describe('Presence', () => {
 
   it('renders Madrid address', () => {
     render(<Presence />)
-    expect(screen.getByText(/casas de miravete/i)).toBeInTheDocument()
+    expect(screen.getByText(/calle del haya/i)).toBeInTheDocument()
   })
 })

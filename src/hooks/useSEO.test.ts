@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import { useSEO } from './useSEO'
 
-function addMeta(selector: string, attr: string, attrValue: string, contentAttr = 'content') {
+function addMeta(selector: string, attr: string, attrValue: string) {
   const el = document.createElement(selector === 'link' ? 'link' : 'meta')
   if (selector === 'link') {
     ;(el as HTMLLinkElement).rel = attrValue
