@@ -4,8 +4,7 @@ export const BASE_URL  = 'https://inco.com.es'
 
 // ─── Media ───────────────────────────────────────────────────────────────────
 // Used in Hero and ProjectBanner — single source of truth
-export const HERO_IMG =
-  'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-autovia-INCO.jpg'
+export const HERO_IMG = '/images/hero-autovia.jpg'
 
 // ─── Contact ─────────────────────────────────────────────────────────────────
 export const INCO_ADDRESS      = 'C/ Casas de Miravete 22A – 3ª Planta, Oficina 3\n28031 Madrid'

@@ -9,21 +9,21 @@ interface Photo {
 }
 
 const PHOTOS: Photo[] = [
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Alcala-de-Guadaira-Proyecto-INCO.webp',        alt: 'Proyecto Alcalá de Guadaíra',      category: 'Urbanismo'       },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Vias-INCO.jpg',                                 alt: 'Gestión y planificación — Vías',   category: 'Ferroviario'     },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Inco-1024x539.jpg',                             alt: 'Obra civil pública y privada',     category: 'Obra civil'      },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-INCO-1-1024x678.webp',                 alt: 'Infraestructura ferroviaria',       category: 'Proyectos'       },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-INCO-1-1-1024x681.webp',               alt: 'Coordinación de seguridad y salud', category: 'Seguridad'       },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-estructura-INCO.jpg',                  alt: 'Proyecto de estructura I',          category: 'Estructuras'     },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-estructura-INCO-2.jpg',                alt: 'Proyecto de estructura II',         category: 'Estructuras'     },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-carreteras-INCO.jpg',                  alt: 'Proyecto de carreteras',            category: 'Carreteras'      },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-autovia-INCO.jpg',                     alt: 'Dirección de obras — Autovía',      category: 'Autovías'        },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-urbanismo-y-obras.jpg',                alt: 'Urbanismo y obras I',               category: 'Urbanismo'       },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-urbanismo-y-obras-INCO.jpg',           alt: 'Urbanismo y obras II',              category: 'Urbanismo'       },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-puente-INCO.jpg',                      alt: 'Proyecto de puente',                category: 'Obras de fábrica'},
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-infraestructura-viaria-INCO.jpg',      alt: 'Infraestructura viaria',            category: 'Carreteras'      },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-infraestructura-hidraulica-INCO.jpg',  alt: 'Infraestructura hidráulica I',      category: 'Hidráulica'      },
-  { src: 'https://inco.com.es/wp-content/uploads/2023/10/Proyecto-infraestructura-hidraulica-INCO-2.jpg',alt: 'Infraestructura hidráulica II',     category: 'Hidráulica'      },
+  { src: '/images/gallery-alcala-de-guadaira.webp',          alt: 'Proyecto Alcalá de Guadaíra',       category: 'Urbanismo'        },
+  { src: '/images/gallery-vias-ferroviario.jpg',             alt: 'Gestión y planificación — Vías',    category: 'Ferroviario'      },
+  { src: '/images/gallery-obra-civil.jpg',                   alt: 'Obra civil pública y privada',      category: 'Obra civil'       },
+  { src: '/images/gallery-infraestructura-ferroviaria.webp', alt: 'Infraestructura ferroviaria',       category: 'Proyectos'        },
+  { src: '/images/gallery-coordinacion-seguridad.webp',      alt: 'Coordinación de seguridad y salud', category: 'Seguridad'        },
+  { src: '/images/gallery-estructura-1.jpg',                 alt: 'Proyecto de estructura I',           category: 'Estructuras'      },
+  { src: '/images/gallery-estructura-2.jpg',                 alt: 'Proyecto de estructura II',          category: 'Estructuras'      },
+  { src: '/images/gallery-carreteras.jpg',                   alt: 'Proyecto de carreteras',             category: 'Carreteras'       },
+  { src: '/images/hero-autovia.jpg',                         alt: 'Dirección de obras — Autovía',       category: 'Autovías'         },
+  { src: '/images/gallery-urbanismo-obras-1.jpg',            alt: 'Urbanismo y obras I',                category: 'Urbanismo'        },
+  { src: '/images/gallery-urbanismo-obras-2.jpg',            alt: 'Urbanismo y obras II',               category: 'Urbanismo'        },
+  { src: '/images/gallery-puente.jpg',                       alt: 'Proyecto de puente',                 category: 'Obras de fábrica' },
+  { src: '/images/gallery-infraestructura-viaria.jpg',       alt: 'Infraestructura viaria',             category: 'Carreteras'       },
+  { src: '/images/gallery-infraestructura-hidraulica-1.jpg', alt: 'Infraestructura hidráulica I',       category: 'Hidráulica'       },
+  { src: '/images/gallery-infraestructura-hidraulica-2.jpg', alt: 'Infraestructura hidráulica II',      category: 'Hidráulica'       },
 ]
 
 const VISIBLE       = 3

@@ -143,19 +143,19 @@ export const About = () => {
             >
               <div className="rounded-[4px] overflow-hidden shadow-2xl">
                 <img
-                  src="https://inco.com.es/wp-content/uploads/2023/10/Proyecto-INCO-.webp"
+                  src="/images/about-proyecto-inco.webp"
                   alt="Proyecto de ingeniería civil ejecutado por INCO Estudio Técnico"
                   className="w-full h-64 sm:h-80 md:h-[420px] object-cover"
                   loading="lazy"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
-                      "https://inco.com.es/wp-content/uploads/2023/10/Inco.jpg";
+                      "/images/about-inco.jpg";
                   }}
                 />
               </div>
               <div className="hidden md:block absolute top-8 -right-5 w-44 h-32 rounded-[4px] overflow-hidden shadow-2xl border-4 border-white">
                 <img
-                  src="https://inco.com.es/wp-content/uploads/2024/05/Ingerniero-inco-1.png"
+                  src="/images/about-ingeniero.png"
                   alt="Ingeniero de INCO realizando supervisión técnica en obra"
                   className="w-full h-full object-cover"
                   loading="lazy"

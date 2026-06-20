@@ -36,19 +36,19 @@ export const Guarantees = () => {
         >
           <div className="rounded-sm overflow-hidden shadow-2xl">
             <img
-              src="https://inco.com.es/wp-content/uploads/2017/10/process-1.jpg"
+              src="/images/guarantees-proceso.jpg"
               alt="Control de calidad en proceso de obra por INCO Estudio Técnico"
               className="w-full h-56 sm:h-80 md:h-[440px] object-cover"
               loading="lazy"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
-                  "https://inco.com.es/wp-content/uploads/2023/10/Proyecto-INCO-.webp";
+                  "/images/about-proyecto-inco.webp";
               }}
             />
           </div>
           <div className="hidden md:block absolute -bottom-6 -right-6 w-56 overflow-hidden rounded-sm shadow-2xl border-[5px] border-white">
             <img
-              src="https://inco.com.es/wp-content/uploads/2023/10/Inco.jpg"
+              src="/images/about-inco.jpg"
               alt="Ejecución de obra de ingeniería civil por el equipo técnico de INCO"
               className="w-full h-40 object-cover"
               loading="lazy"
